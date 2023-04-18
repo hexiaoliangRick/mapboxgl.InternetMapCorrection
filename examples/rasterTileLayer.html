@@ -47,108 +47,133 @@
             layers:[],
             sources:{}
         },
-        center: [116.39104,39.90502], 
-        zoom: 15,
+        center:[126.713, 45.9132],
+        zoom: 12,
         hash: true
     });
 
     map.on('load',()=>{
         bdsl()
+
+
     })
 
     //天地图普通地图
     function tdtsl(){
         addRasterTileLayer([
             ['tdtsl', 'TianDiTu.Normal.Map'],
-            ['tdtslzj', 'TianDiTu.Normal.Annotion']
+            ['tdtslzj', 'TianDiTu.Normal.Annotion'],
+            ['river', 'River.Normal.Map']
         ],'fb258b4c0bbf60ff7a0205b519ad9a96')
     }
     //天地图影像
     function tdtyx(){
         addRasterTileLayer([
             ['tdtyx', 'TianDiTu.Satellite.Map'],
-            ['tdtyxzj', 'TianDiTu.Satellite.Annotion']
+            ['tdtyxzj', 'TianDiTu.Satellite.Annotion'],
+            ['river', 'River.Normal.Map']
         ],'fb258b4c0bbf60ff7a0205b519ad9a96')
     }
     //天地图地形
     function tdtdx(){
         addRasterTileLayer([
             ['tdtdx', 'TianDiTu.Terrain.Map'],
-            ['tdtdxzj', 'TianDiTu.Terrain.Annotion']
+            ['tdtdxzj', 'TianDiTu.Terrain.Annotion'],
+            ['river', 'River.Normal.Map']
         ],'fb258b4c0bbf60ff7a0205b519ad9a96')
     }
 
     //高德矢量
     function gdsl(){
         addRasterTileLayer([
-            ['gdsl', 'GaoDe.Normal.Map']
+            ['gdsl', 'GaoDe.Normal.Map'],
+            ['river', 'River.Normal.Map']
         ])
     }
     //高德矢量,无注记版
     function gdslwzj(){
         addRasterTileLayer([
-            ['gdslwzj', 'GaoDe.Normal_NoTag.Map']
+            ['gdslwzj', 'GaoDe.Normal_NoTag.Map'],
+            ['river', 'River.Normal.Map']
         ])
     }
     //高德影像
     function gdyx(){
         addRasterTileLayer([
             ['gdyx','GaoDe.Satellite.Map'],
-            ['gdyxzj', 'GaoDe.Satellite.Annotion']
+            ['gdyxzj', 'GaoDe.Satellite.Annotion'],
+            ['river', 'River.Normal.Map']
+        ])
+    }
+
+    //添加水系
+    function river(){
+        addRasterTileLayer([
+            ['river','River.Normal.Map']
         ])
     }
     
     //百度矢量
     function bdsl(){
         addRasterTileLayer([
-            ['bdsl','Baidu.Normal.Map']
+            ['bdsl','Baidu.Normal.Map'],
+            ['river', 'River.Normal.Map']
         ])
     }
     //百度影像
     function bdyx(){
         addRasterTileLayer([
             ['bdyx','Baidu.Satellite.Map'],
-            ['bdyxzj', 'Baidu.Satellite.Annotion']
+            ['bdyxzj', 'Baidu.Satellite.Annotion'],
+            ['river', 'River.Normal.Map']
         ])
     }
 
     //OSM地图
     function osm(){
         addRasterTileLayer([
-            ['osm', 'OSM.Normal.Map']
+            ['osm', 'OSM.Normal.Map'],
+            ['river', 'River.Normal.Map']
         ])
     }
 
     //GeoQ普通地图
     function geoq(){
         addRasterTileLayer([
-            ['geoq', 'Geoq.Normal.Map']
+            ['geoq', 'Geoq.Normal.Map'],
+            ['river', 'River.Normal.Map']
         ])
     }
     //GeoQ深蓝色地图
     function geoqPurplishBlue(){
         addRasterTileLayer([
-            ['geoqPurplishBlue', 'Geoq.Normal.PurplishBlue']
+            ['geoqPurplishBlue', 'Geoq.Normal.PurplishBlue'],
+            ['river', 'River.Normal.Map']
         ])
     }
     //GeoQ浅色地图
     function geoqGray(){
         addRasterTileLayer([
-            ['geoqGray', 'Geoq.Normal.Gray']
+            ['geoqGray', 'Geoq.Normal.Gray'],
+            ['river', 'River.Normal.Map']
         ])
     }
     //GeoQ暖色调地图
     function geoqWarm(){
         addRasterTileLayer([
-            ['geoqWarm', 'Geoq.Normal.Warm']
+            ['geoqWarm', 'Geoq.Normal.Warm'],
+            ['river', 'River.Normal.Map']
         ])
     }
     //GeoQ冷色调地图
     function geoqCold(){
         addRasterTileLayer([
-            ['geoqCold', 'Geoq.Normal.Cold']
+            ['geoqCold', 'Geoq.Normal.Cold'],
+            ['river', 'River.Normal.Map']
         ])
     }
+
+
 
     
     var loadLayer=[]
@@ -167,17 +192,20 @@
         })
         loadLayer = []
         layerList.forEach(function(layer){
+
             loadLayer.push(layer[0])
             //调用接口，添加图层
             var param = key?{key:key}:null
             map.addLayer(rasterTileLayer(layer[0], layer[1], param));
         })
+        // addSysRiverLayer()
     }
 
 
     //参照点，wgs84坐标下的天安门广场国旗位置
     var marker = new mapboxgl.Marker()
-        .setLngLat([116.391305, 39.905530])
+    // center: [126.713, 45.9132], //地图中心经纬度
+        .setLngLat([126.713, 45.9132])
         .addTo(map);
 
 </script>

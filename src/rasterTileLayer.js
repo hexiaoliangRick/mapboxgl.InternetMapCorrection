@@ -75,6 +75,14 @@ export default function RasterTileLayer(layerId, layerType, options){
                 maxzoom:18,
             },
             Subdomains: ['a', 'b', 'c']
+        },
+        River: {
+            Normal: {
+                Map: "http://10.7.15.{s}:8088/geoserver/baseData/wms?service=WMS&version=1.1.0&request=GetMap&layers=baseData:river&styles=&bbox={bbox-epsg-3857}&width=768&height=553&srs=EPSG:3857&format=image/png&TRANSPARENT=TRUE",
+                minzoom:0,
+                maxzoom:18,
+            },
+            Subdomains: ["1"]
         }
     }
     
@@ -91,7 +99,8 @@ export default function RasterTileLayer(layerId, layerType, options){
     var tileType = providers[providerName].tileType;
 
     var tilelayer;
-    if(providerName === 'TianDiTu' || providerName === 'OSM' ){    //天地图使用大地2000坐标可以直接使用，不用偏移
+    if(providerName === 'TianDiTu' || providerName === 'OSM' ||providerName=="River"){    //天地图使用大地2000坐标可以直接使用，不用偏移
+        debugger
         var key = _options.key || providers[providerName].key;
         var urls = []
         for(var sub of subdomains){

@@ -2,7 +2,7 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
 	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.rasterTileLayer = factory());
-}(this, (function () { 'use strict';
+})(this, (function () { 'use strict';
 
 	/*
 	 * @namespace Util
@@ -574,84 +574,78 @@
 	  }
 	}
 
+	function _typeof(obj) {
+	  "@babel/helpers - typeof";
+
+	  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+	    return typeof obj;
+	  } : function (obj) {
+	    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+	  }, _typeof(obj);
+	}
+
+	function _toPrimitive(input, hint) {
+	  if (_typeof(input) !== "object" || input === null) return input;
+	  var prim = input[Symbol.toPrimitive];
+	  if (prim !== undefined) {
+	    var res = prim.call(input, hint || "default");
+	    if (_typeof(res) !== "object") return res;
+	    throw new TypeError("@@toPrimitive must return a primitive value.");
+	  }
+	  return (hint === "string" ? String : Number)(input);
+	}
+
+	function _toPropertyKey(arg) {
+	  var key = _toPrimitive(arg, "string");
+	  return _typeof(key) === "symbol" ? key : String(key);
+	}
+
 	function _defineProperties(target, props) {
 	  for (var i = 0; i < props.length; i++) {
 	    var descriptor = props[i];
 	    descriptor.enumerable = descriptor.enumerable || false;
 	    descriptor.configurable = true;
 	    if ("value" in descriptor) descriptor.writable = true;
-	    Object.defineProperty(target, descriptor.key, descriptor);
+	    Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
 	  }
 	}
-
 	function _createClass(Constructor, protoProps, staticProps) {
 	  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
 	  if (staticProps) _defineProperties(Constructor, staticProps);
+	  Object.defineProperty(Constructor, "prototype", {
+	    writable: false
+	  });
 	  return Constructor;
 	}
-
-	function getDefaultExportFromCjs (x) {
-		return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-	}
-
-	var _typeof$1 = {exports: {}};
-
-	(function (module) {
-	function _typeof(obj) {
-	  "@babel/helpers - typeof";
-
-	  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-	    module.exports = _typeof = function _typeof(obj) {
-	      return typeof obj;
-	    };
-
-	    module.exports["default"] = module.exports, module.exports.__esModule = true;
-	  } else {
-	    module.exports = _typeof = function _typeof(obj) {
-	      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-	    };
-
-	    module.exports["default"] = module.exports, module.exports.__esModule = true;
-	  }
-
-	  return _typeof(obj);
-	}
-
-	module.exports = _typeof;
-	module.exports["default"] = module.exports, module.exports.__esModule = true;
-	}(_typeof$1));
-
-	var _typeof = /*@__PURE__*/getDefaultExportFromCjs(_typeof$1.exports);
 
 	function _assertThisInitialized(self) {
 	  if (self === void 0) {
 	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
 	  }
-
 	  return self;
 	}
 
 	function _possibleConstructorReturn(self, call) {
 	  if (call && (_typeof(call) === "object" || typeof call === "function")) {
 	    return call;
+	  } else if (call !== void 0) {
+	    throw new TypeError("Derived constructors may only return object or undefined");
 	  }
-
 	  return _assertThisInitialized(self);
 	}
 
 	function _getPrototypeOf(o) {
-	  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+	  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
 	    return o.__proto__ || Object.getPrototypeOf(o);
 	  };
 	  return _getPrototypeOf(o);
 	}
 
 	function _setPrototypeOf(o, p) {
-	  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+	  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
 	    o.__proto__ = p;
 	    return o;
 	  };
-
 	  return _setPrototypeOf(o, p);
 	}
 
@@ -659,13 +653,15 @@
 	  if (typeof superClass !== "function" && superClass !== null) {
 	    throw new TypeError("Super expression must either be null or a function");
 	  }
-
 	  subClass.prototype = Object.create(superClass && superClass.prototype, {
 	    constructor: {
 	      value: subClass,
 	      writable: true,
 	      configurable: true
 	    }
+	  });
+	  Object.defineProperty(subClass, "prototype", {
+	    writable: false
 	  });
 	  if (superClass) _setPrototypeOf(subClass, superClass);
 	}
@@ -675,42 +671,36 @@
 	}
 
 	function _iterableToArrayLimit(arr, i) {
-	  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
-
-	  if (_i == null) return;
-	  var _arr = [];
-	  var _n = true;
-	  var _d = false;
-
-	  var _s, _e;
-
-	  try {
-	    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
-	      _arr.push(_s.value);
-
-	      if (i && _arr.length === i) break;
-	    }
-	  } catch (err) {
-	    _d = true;
-	    _e = err;
-	  } finally {
+	  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
+	  if (null != _i) {
+	    var _s,
+	      _e,
+	      _x,
+	      _r,
+	      _arr = [],
+	      _n = !0,
+	      _d = !1;
 	    try {
-	      if (!_n && _i["return"] != null) _i["return"]();
+	      if (_x = (_i = _i.call(arr)).next, 0 === i) {
+	        if (Object(_i) !== _i) return;
+	        _n = !1;
+	      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0);
+	    } catch (err) {
+	      _d = !0, _e = err;
 	    } finally {
-	      if (_d) throw _e;
+	      try {
+	        if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return;
+	      } finally {
+	        if (_d) throw _e;
+	      }
 	    }
+	    return _arr;
 	  }
-
-	  return _arr;
 	}
 
 	function _arrayLikeToArray(arr, len) {
 	  if (len == null || len > arr.length) len = arr.length;
-
-	  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-	    arr2[i] = arr[i];
-	  }
-
+	  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
 	  return arr2;
 	}
 
@@ -1165,6 +1155,8 @@
 	}
 	/**
 	 * Generates a perspective projection matrix with the given bounds.
+	 * The near/far clip planes correspond to a normalized device coordinate Z range of [-1, 1],
+	 * which matches WebGL/OpenGL's clip volume.
 	 * Passing null/undefined/no value for far will generate infinite projection matrix.
 	 *
 	 * @param {mat4} out mat4 frustum matrix will be written into
@@ -1175,7 +1167,7 @@
 	 * @returns {mat4} out
 	 */
 
-	function perspective(out, fovy, aspect, near, far) {
+	function perspectiveNO(out, fovy, aspect, near, far) {
 	  var f = 1.0 / Math.tan(fovy / 2),
 	      nf;
 	  out[0] = f / aspect;
@@ -1204,6 +1196,12 @@
 
 	  return out;
 	}
+	/**
+	 * Alias for {@link mat4.perspectiveNO}
+	 * @function
+	 */
+
+	var perspective = perspectiveNO;
 	/**
 	 * Returns whether or not the matrices have approximately the same elements in the same position.
 	 *
@@ -1977,7 +1975,7 @@
 	  scale = scale !== undefined ? scale : zoomToScale(zoom);
 
 	  const result = {};
-	  const worldSize = TILE_SIZE * scale;
+	  const worldSize = TILE_SIZE * scale * window.devicePixelRatio;
 	  const latCosine = Math.cos(latitude * DEGREES_TO_RADIANS);
 
 	  /**
@@ -2478,6 +2476,14 @@
 	                maxzoom: 18
 	            },
 	            Subdomains: ['a', 'b', 'c']
+	        },
+	        River: {
+	            Normal: {
+	                Map: "http://10.7.15.{s}:8088/geoserver/baseData/wms?service=WMS&version=1.1.0&request=GetMap&layers=baseData:river&styles=&bbox={bbox-epsg-3857}&width=768&height=553&srs=EPSG:3857&format=image/png&TRANSPARENT=TRUE",
+	                minzoom: 0,
+	                maxzoom: 18
+	            },
+	            Subdomains: ["1"]
 	        }
 	    };
 
@@ -2494,8 +2500,9 @@
 	    var tileType = providers[providerName].tileType;
 
 	    var tilelayer;
-	    if (providerName === 'TianDiTu' || providerName === 'OSM') {
+	    if (providerName === 'TianDiTu' || providerName === 'OSM' || providerName == "River") {
 	        //天地图使用大地2000坐标可以直接使用，不用偏移
+	        debugger;
 	        var key = _options.key || providers[providerName].key;
 	        var urls = [];
 	        for (var sub of subdomains) {
@@ -2526,5 +2533,5 @@
 
 	return RasterTileLayer;
 
-})));
+}));
 //# sourceMappingURL=rasterTileLayer-src.js.map
